@@ -7,7 +7,7 @@ services:
       - frontend
       - backend
     environment:
-      - MYSQL_HOST=seascan
+      - MYSQL_HOST=seascan-master-sql
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_DB=seascan

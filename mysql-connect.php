@@ -19,6 +19,9 @@ if(!empty($_ENV['MYSQL_DB'])){
 }else{
     $db_name = 'seascan';
 }
+
+echo $_ENV['MYSQL_HOST'];
+echo "<br><br>";
 echo "Connecting to Database: $host $user $pass $db_name";
 echo "<br><br>";
 
