@@ -1,40 +1,21 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: cimg/base:stable
+    machine: true
     steps:
       - checkout
+      - setup_remote_docker: 
+          version: 20.10.7
       - run: 
-          name: get version info
+          name: create image
           command: |
-            docker --version
-            docker-compose --version
-            pwd
             ls
-            cd ../
-            ls
-            cd ../
-            ls
-            ls -l /usr/local/bin/docker-compose
-            sudo rm -rf docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-            docker-compose -v
-
-      # - run:
-      #     name: "build img"
-      #     command: |
-      #       set -x
-      #       docker build . -t durdahl/seascan-master
-            
+            sudo docker build . -t durdahl/seascan-master
       - run:
-          name: "run compose services"
+          name: Start container and verify it's working
           command: |
             set -x
-            docker-compose up --build
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+            docker-compose up -d
 workflows:
   test-workflow:
     jobs:
