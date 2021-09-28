@@ -1,21 +1,55 @@
-version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
-
-    # Specify the execution environment.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-
     docker:
       - image: cimg/base:stable
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-
     steps:
       - checkout
+      # - run:
+      #     name: Waiting for Postgres to be ready
+      #     command: |
+      #       for i in `seq 1 10`;
+      #       do
+      #         nc -z localhost 5432 && echo Success && exit 0
+      #         echo -n .
+      #         sleep 1
+      #       done
+      #       echo Failed waiting for Postgress && exit 1
+
+      # - run: mkdir -p $TEST_RESULTS
+
+      # - run:
+      #     name: Install Docker client
+      #     command: |
+      #       set -x
+      #       VER="17.03.0-ce"
+      #       curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+      #       tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+      #       mv /tmp/docker/* /usr/bin
+
+      # - run:
+      #     name: Install Docker Compose
+      #     command: |
+      #       set -x
+      #       curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+      #       chmod +x /usr/local/bin/docker-compose
+    
+
+      - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
+
+
+
+
+      - run:
+          name: "build img"
+          command: |
+            set -x
+            docker build . -t durdahl/seascan-master
+            
       - run:
           name: "run compose services"
           command: |
