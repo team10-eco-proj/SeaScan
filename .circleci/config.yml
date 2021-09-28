@@ -41,6 +41,7 @@ jobs:
             docker-compose --version
             pwd
             ls
+            sudo service docker restart
 
       - run:
           name: "build img"
