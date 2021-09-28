@@ -21,24 +21,17 @@ jobs:
             sudo chmod +x /usr/local/bin/docker-compose
             docker-compose -v
 
-      - run:
-          name: "run docker"
-          command: |
-            set -x
-            sudo apt-get remove docker-compose
-            sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
       # - run:
       #     name: "build img"
       #     command: |
       #       set -x
       #       docker build . -t durdahl/seascan-master
             
-      # - run:
-      #     name: "run compose services"
-      #     command: |
-      #       set -x
-      #       docker-compose up --build
+       - run:
+           name: "run compose services"
+           command: |
+             set -x
+             docker-compose up --build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
