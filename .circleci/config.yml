@@ -16,6 +16,7 @@ jobs:
             ls
             cd ../
             ls
+            ls -l /usr/local/bin/docker-compose
       - run:
           name: "run docker"
           command: |
