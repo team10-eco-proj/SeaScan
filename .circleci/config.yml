@@ -9,6 +9,7 @@ jobs:
       - run: 
           name: create image
           command: |
+            ls
             sudo docker build . -t durdahl/seascan-master
       - run:
           name: Start container and verify it's working
