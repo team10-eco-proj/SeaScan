@@ -12,6 +12,13 @@ class CalulatorTest extends \PHPUnit\Framework\TestCase {
         $calulator = new App\Calculator;
         $result = $calulator->subtract(20,5);
 
-        $this->assertEquals(15, $result);
+        $this->assertEquals(16, $result);
+    }
+
+    public function testMultiply(){
+        $calulator = new App\Calculator;
+        $result = $calulator->multiply(20,5);
+
+        $this->assertEquals(100, $result);
     }
 }
