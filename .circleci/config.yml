@@ -35,17 +35,18 @@ jobs:
       #       chmod +x /usr/local/bin/docker-compose
     
       - run: 
+          name: get version info
           command: |
             docker --version
             docker-compose --version
             pwd
             ls
 
-      # - run:
-      #     name: "build img"
-      #     command: |
-      #       set -x
-      #       docker build . -t durdahl/seascan-master
+      - run:
+          name: "build img"
+          command: |
+            set -x
+            docker build . -t durdahl/seascan-master
             
       # - run:
       #     name: "run compose services"
