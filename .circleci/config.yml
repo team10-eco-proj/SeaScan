@@ -17,7 +17,13 @@ jobs:
           name: Start container and verify it's working
           command: |
             set -x
-            docker-compose up -d
+            docker-compose up --build
+
+      - run:
+          name: run phpUnit tests
+          command: |
+            ./vendor/bin/phpunit --testdox
+
 workflows:
   test-workflow:
     jobs:
