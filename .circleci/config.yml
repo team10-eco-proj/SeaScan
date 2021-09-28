@@ -10,16 +10,34 @@ jobs:
 
     docker:
       - image: cimg/base:stable
+      - image: postgres:9.4.1
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: contacts
 
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    environment:
+      TEST_RESULTS: /tmp/test-results
 
     steps:
       - checkout
       - run:
+          name: Waiting for Postgres to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for Postgress && exit 1
+            
+      - run: mkdir -p $TEST_RESULTS
+
+      - run:
           name: "build img"
           command: |
             set -x
+            dockerd
             docker build . -t durdahl/seascan-master
             
       - run:
