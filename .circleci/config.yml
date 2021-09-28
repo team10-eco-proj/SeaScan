@@ -1,4 +1,3 @@
-version: 2.1
 jobs:
   install_composer_packages:
     executor: php/default
