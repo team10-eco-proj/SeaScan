@@ -10,6 +10,4 @@ RUN mkdir /app \
 
 COPY . /app/seaScan/www/
 
-RUN cp -r /app/seaScan/www/* /var/www/html
-
-# CMD ["start"]
+RUN cp -r /app/seaScan/www/* /var/www/html/.

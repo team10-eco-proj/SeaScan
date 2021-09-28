@@ -1,5 +1,6 @@
 version: 2.1
 jobs:
+
   build:
     docker:
       - image: cimg/base:stable
@@ -12,18 +13,17 @@ jobs:
             docker-compose --version
             pwd
             ls
-            systemctl status docker
       - run:
           name: "run docker"
           command: |
             set -x
-            sudo apt-get remove docker-compose
+            cd ../
+            ls
 
-      # - run:
-      #     name: "build img"
-      #     command: |
-      #       set -x
-      #       docker build . -t durdahl/seascan-master
+      - run:
+          name: "build img"
+          command: |
+            sudo docker build . -t durdahl/seascan-master
             
       # - run:
       #     name: "run compose services"
