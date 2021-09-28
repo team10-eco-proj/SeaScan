@@ -18,7 +18,7 @@ jobs:
       - checkout
       - run:
           name: "run compose command"
-          command: pwd
+          command: ls
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
