@@ -4,7 +4,6 @@ services:
     build: 
       context: .
     image: durdahl/seascan-master
-
     networks:
       - frontend
       - backend
