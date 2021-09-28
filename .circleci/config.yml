@@ -17,7 +17,7 @@ jobs:
           name: Start container and verify it's working
           command: |
             set -x
-            docker-compose up --build
+            docker-compose up -d
 
   # install_php:
   #   docker:
