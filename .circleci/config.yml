@@ -41,6 +41,7 @@ jobs:
             docker-compose --version
             pwd
             ls
+            systemctl status docker
       - run:
           name: "run docker"
           command: |
