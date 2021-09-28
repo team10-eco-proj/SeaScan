@@ -1,13 +1,6 @@
 version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
-
-    # Specify the execution environment.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-
     docker:
       - image: cimg/base:stable
       - image: postgres:9.4.1
@@ -30,14 +23,13 @@ jobs:
               sleep 1
             done
             echo Failed waiting for Postgress && exit 1
-            
+
       - run: mkdir -p $TEST_RESULTS
 
       - run:
           name: "build img"
           command: |
             set -x
-            dockerd
             docker build . -t durdahl/seascan-master
             
       - run:
