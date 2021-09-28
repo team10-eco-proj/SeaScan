@@ -10,10 +10,10 @@ jobs:
       - run: 
           name: get version info
           command: |
-            docker --version
-            docker-compose --version
             pwd
             ls
+            docker --version
+            docker-compose --version
       - run:
           name: "run docker"
           command: |
