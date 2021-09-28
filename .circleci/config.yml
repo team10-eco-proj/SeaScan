@@ -32,9 +32,9 @@ jobs:
   #           pwd
   #           ls
   #           sudo ./vendor/bin/phpunit --testdox
-orbs:
-  php: circleci/php@x.y
-  version: 2.1
+# orbs:
+#   php: circleci/php@x.y
+#   version: 2.1
 workflows:
   test-workflow:  
     jobs:
