@@ -23,6 +23,7 @@ jobs:
           command: |
             pwd
             ls
+            set -x
             ./vendor/bin/phpunit --testdox
   # install_php:
   #   docker:
