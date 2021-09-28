@@ -20,7 +20,7 @@ jobs:
           name: "build img"
           command: |
             set -x
-            dockerd
+            sudo dockerd
             sudo docker build . -t durdahl/seascan-master
             
       - run:
