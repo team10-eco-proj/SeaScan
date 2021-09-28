@@ -7,6 +7,10 @@ jobs:
       - image: php:7.2-apache
     steps:
       - checkout
+      - run:
+          name: Install Docker
+          command: |
+            sudo apt-get install docker
       - run: 
           name: get version info
           command: |
@@ -14,6 +18,16 @@ jobs:
             ls
             docker --version
             docker-compose --version
+      - run:
+          name: Install Docker Compose
+          command: |
+            sudo apt-get install docker-compose
+
+      - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
       - run:
           name: "run docker"
           command: |
