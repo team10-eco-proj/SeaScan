@@ -27,7 +27,7 @@ tests:
       - checkout
       - php/install-php:
           version: '7.3'
-      -run:
+      - run:
           name: unit test maybe
           command: |
             pwd
