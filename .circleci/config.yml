@@ -14,21 +14,22 @@ jobs:
             ls
             sudo docker build . -t durdahl/seascan-master
       - run:
-          name: run phpUnit tests
-          command: |
-            sudo ./vendor/bin/phpunit --testdox
-      - run:
           name: Start container and verify it's working
           command: |
             set -x
             docker-compose up --build
 
+  tests:
+    steps:
       - run:
           name: run phpUnit tests
           command: |
-            ./vendor/bin/phpunit --testdox
-
+            pwd
+            ls
+            sudo ./vendor/bin/phpunit --testdox
+    
 workflows:
   test-workflow:
     jobs:
       - build
+      - tests
