@@ -17,14 +17,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Docker Compose
+          name: "build img"
           command: |
             set -x
-            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-            chmod +x /usr/local/bin/docker-compose
-
+            docker build . -t durdahl/seascan-master
+            
       - run:
-          name: "run compose command"
+          name: "run compose services"
           command: |
             set -x
             docker-compose up --build
