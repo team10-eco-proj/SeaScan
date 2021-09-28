@@ -12,4 +12,4 @@ COPY . /app/seaScan/www/
 
 RUN cp -r /app/seaScan/www/* /var/www/html
 
-CMD ["start"]
+# CMD ["start"]
