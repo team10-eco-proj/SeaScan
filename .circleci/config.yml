@@ -23,7 +23,7 @@ jobs:
           command: |
             pwd
             ls
-            sudo ./vendor/bin/phpunit --testdox
+            ./vendor/bin/phpunit --testdox
   # install_php:
   #   docker:
   #     - image: 'cimg/base:edge'
