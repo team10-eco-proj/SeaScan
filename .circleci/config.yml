@@ -17,7 +17,7 @@ jobs:
           name: "run docker"
           command: |
             set -x
-            sudo systemctl start docker
+            sudo apt-get remove docker-compose
 
       # - run:
       #     name: "build img"
