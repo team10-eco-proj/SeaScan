@@ -18,7 +18,12 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-
+      - run:
+          name: unit test maybe
+          command: |
+            pwd
+            ls
+            sudo ./vendor/bin/phpunit --testdox
   # install_php:
   #   docker:
   #     - image: 'cimg/base:edge'
