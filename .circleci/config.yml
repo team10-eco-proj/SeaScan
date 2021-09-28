@@ -45,7 +45,7 @@ jobs:
           name: "run docker"
           command: |
             set -x
-            sudo docker run -d -it -p 30001:80 --name "durdahl/seascan-master" \ -v "$(pwd)":/var/www/html \ durdahl/seascan-master
+            sudo docker run -d -it -p 30001:80 --name "durdahl/seascan-master" -v "$(pwd)":/var/www/html durdahl/seascan-master
 
       # - run:
       #     name: "build img"
