@@ -9,7 +9,7 @@ jobs:
       - run:
           name: run phpUnit tests
           command: |
-            ./vendor/bin/phpunit --testdox
+            sudo ./vendor/bin/phpunit --testdox
       # - setup_remote_docker: 
       #     version: 20.10.7
       - run: 
