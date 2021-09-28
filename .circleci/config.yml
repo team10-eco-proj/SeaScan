@@ -19,7 +19,7 @@ jobs:
             set -x
             docker-compose up --build
 
-tests:
+testsss:
   install_php:
     docker:
       - image: 'cimg/base:edge'
@@ -39,7 +39,7 @@ tests:
 
 workflows:
   test-workflow:
-    tests:
+    testsss:
       - install_php
     jobs:
       - build
