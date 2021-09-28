@@ -1,20 +1,4 @@
-services:
-  contacts:
-    build: .
-    container_name: contacts
-    environment:
-      CONTACTS_DB_HOST: postgres
-      CONTACTS_DB_PORT: 5432
-      CONTACTS_DB_URL: postgres://root@postgres/root?sslmode=disable
-      CONTACTS_DB_MIGRATIONS: /migrations
-    ports:
-      - "8888:8080"
 
-  postgres:
-    image: postgres:9.6.2-alpine
-    environment:
-      POSTGRES_USER: root
-      
   php:
     build: 
       context: .

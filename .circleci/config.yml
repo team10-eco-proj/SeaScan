@@ -1,9 +1,9 @@
-version: 2.1
+version: 3.2
 jobs:
   build:
     docker:
       - image: cimg/base:stable
-      - image: postgres:9.4.1
+      - image: php:7.2-apache
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: contacts
