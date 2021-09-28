@@ -20,13 +20,13 @@ jobs:
           name: "build img"
           command: |
             set -x
-            docker build . -t durdahl/seascan-master
+            dockerd
+            sudo docker build . -t durdahl/seascan-master
             
       - run:
           name: "run compose services"
           command: |
             set -x
-            dockerd
             docker-compose up --build
 
 # Invoke jobs via workflows
