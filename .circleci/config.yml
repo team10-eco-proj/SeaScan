@@ -41,13 +41,17 @@ jobs:
             docker-compose --version
             pwd
             ls
-            sudo service docker restart
-
       - run:
-          name: "build img"
+          name: "run docker"
           command: |
             set -x
-            docker build . -t durdahl/seascan-master
+            sudo docker run -d -it -p 30001:80 --name "durdahl/seascan-master"
+
+      # - run:
+      #     name: "build img"
+      #     command: |
+      #       set -x
+      #       docker build . -t durdahl/seascan-master
             
       # - run:
       #     name: "run compose services"
