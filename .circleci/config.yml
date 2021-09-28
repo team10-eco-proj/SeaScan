@@ -12,6 +12,8 @@ jobs:
             docker-compose --version
             pwd
             ls
+            cd ../
+            ls
       - run:
           name: "run docker"
           command: |
