@@ -2,10 +2,13 @@ version: 2.1
 jobs:
 
   build:
+    working_directory: /app
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
+      - setup_remote_docker: 
+          version: 20.10.7
       - run: 
           name: create image
           command: |
@@ -16,26 +19,6 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-      # - run:
-      #     name: "run docker"
-      #     command: |
-      #       set -x
-      #       cd ../
-      #       ls
-
-      # - run:
-      #     name: "build img"
-      #     command: |
-      #       sudo docker build . -t durdahl/seascan-master
-            
-      # - run:
-      #     name: "run compose services"
-      #     command: |
-      #       set -x
-      #       docker-compose up --build
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   test-workflow:
     jobs:
