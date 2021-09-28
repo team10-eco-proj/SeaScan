@@ -3,42 +3,29 @@ jobs:
 
   build:
     docker:
-      # - image: cimg/base:stable
-      - image: php:7.2-apache
+      - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: Install Docker
-          command: |
-            sudo apt-get install docker
       - run: 
-          name: get version info
+          name: create image
           command: |
-            pwd
-            ls
-            docker --version
-            docker-compose --version
-      - run:
-          name: Install Docker Compose
-          command: |
-            sudo apt-get install docker-compose
-
+            sudo docker build -t durdahl/seascan-master
       - run:
           name: Start container and verify it's working
           command: |
             set -x
             docker-compose up -d
-      - run:
-          name: "run docker"
-          command: |
-            set -x
-            cd ../
-            ls
+      # - run:
+      #     name: "run docker"
+      #     command: |
+      #       set -x
+      #       cd ../
+      #       ls
 
-      - run:
-          name: "build img"
-          command: |
-            sudo docker build . -t durdahl/seascan-master
+      # - run:
+      #     name: "build img"
+      #     command: |
+      #       sudo docker build . -t durdahl/seascan-master
             
       # - run:
       #     name: "run compose services"
