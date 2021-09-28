@@ -20,16 +20,30 @@ jobs:
             docker-compose up --build
 
   tests:
-    steps:
-      - run:
-          name: run phpUnit tests
-          command: |
-            pwd
-            ls
-            sudo ./vendor/bin/phpunit --testdox
-    
+    jobs:
+      install_php:
+        docker:
+          - image: 'cimg/base:edge'
+        steps:
+          - checkout
+          - php/install-php:
+              version: '7.3'
+          -run:
+              name: unit test maybe
+              command: |
+                pwd
+                ls
+                sudo ./vendor/bin/phpunit --testdox
+    orbs:
+      php: circleci/php@x.y
+    version: 2.1
+    workflows:
+      tests:
+        jobs:
+          - install_php
 workflows:
   test-workflow:
     jobs:
+      - tests
       - build
-      - test
+      
