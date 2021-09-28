@@ -19,7 +19,7 @@ jobs:
       - run:
           name: "run compose command"
           command:  |
-            docker-compose up --D
+            docker-compose up --build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
