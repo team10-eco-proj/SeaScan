@@ -21,12 +21,6 @@ jobs:
           command: |
             set -x
             sudo docker build . -t durdahl/seascan-master
-            
-      - run:
-          name: "run compose services"
-          command: |
-            set -x
-            docker-compose up --build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
