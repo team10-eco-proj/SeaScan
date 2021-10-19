@@ -1,0 +1,215 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
+--
+-- Host: seascan-master-sql: 3306
+-- Generation Time: Sep 27, 2021 at 12:56 PM
+-- Server version: 5.7.35
+-- PHP Version: 7.2.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `seascan`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assoc_user_role`
+--
+
+DROP TABLE IF EXISTS `assoc_user_role`;
+CREATE TABLE `assoc_user_role` (
+  `user_role_pk` int(11) NOT NULL,
+  `user_fk` int(11) NOT NULL,
+  `role_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `global_notification_parameters`
+--
+
+DROP TABLE IF EXISTS `global_notification_parameters`;
+CREATE TABLE `global_notification_parameters` (
+  `parameter_pk` int(11) NOT NULL,
+  `salinity_min` float NOT NULL,
+  `salinity_max` float NOT NULL,
+  `temp_min` float NOT NULL,
+  `temp_max` float NOT NULL,
+  `role_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sensor`
+--
+
+DROP TABLE IF EXISTS `sensor`;
+CREATE TABLE `sensor` (
+  `sensor_pk` int(11) NOT NULL,
+  `grid_lat` varchar(3) NOT NULL,
+  `grid_long` varchar(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_role`
+--
+
+DROP TABLE IF EXISTS `sub_role`;
+CREATE TABLE `sub_role` (
+  `role_pk` int(11) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_pk` int(11) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` varchar(255) NOT NULL,
+  `password` int(11) NOT NULL,
+  `pass_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_prefs`
+--
+
+DROP TABLE IF EXISTS `user_prefs`;
+CREATE TABLE `user_prefs` (
+  `pref_pk` int(11) NOT NULL,
+  `user_fk` int(11) NOT NULL,
+  `notes_on` tinyint(1) NOT NULL DEFAULT '0',
+  `salinity_max` float NOT NULL,
+  `salinity_min` float NOT NULL,
+  `temp_min` float NOT NULL,
+  `temp_max` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `water_data`
+--
+
+DROP TABLE IF EXISTS `water_data`;
+CREATE TABLE `water_data` (
+  `data_pk` int(11) NOT NULL,
+  `temp` int(11) NOT NULL,
+  `salinity` decimal(10,0) NOT NULL,
+  `grid_lat` varchar(5) NOT NULL,
+  `grid_long` varchar(5) NOT NULL,
+  `log_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `assoc_user_role`
+--
+ALTER TABLE `assoc_user_role`
+  ADD PRIMARY KEY (`user_role_pk`);
+
+--
+-- Indexes for table `global_notification_parameters`
+--
+ALTER TABLE `global_notification_parameters`
+  ADD PRIMARY KEY (`parameter_pk`);
+
+--
+-- Indexes for table `sensor`
+--
+ALTER TABLE `sensor`
+  ADD PRIMARY KEY (`sensor_pk`);
+
+--
+-- Indexes for table `sub_role`
+--
+ALTER TABLE `sub_role`
+  ADD PRIMARY KEY (`role_pk`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_pk`);
+
+--
+-- Indexes for table `user_prefs`
+--
+ALTER TABLE `user_prefs`
+  ADD PRIMARY KEY (`pref_pk`);
+
+--
+-- Indexes for table `water_data`
+--
+ALTER TABLE `water_data`
+  ADD PRIMARY KEY (`data_pk`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `assoc_user_role`
+--
+ALTER TABLE `assoc_user_role`
+  MODIFY `user_role_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `global_notification_parameters`
+--
+ALTER TABLE `global_notification_parameters`
+  MODIFY `parameter_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sensor`
+--
+ALTER TABLE `sensor`
+  MODIFY `sensor_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sub_role`
+--
+ALTER TABLE `sub_role`
+  MODIFY `role_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_prefs`
+--
+ALTER TABLE `user_prefs`
+  MODIFY `pref_pk` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `water_data`
+--
+ALTER TABLE `water_data`
+  MODIFY `data_pk` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
