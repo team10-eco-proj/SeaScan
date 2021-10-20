@@ -3,7 +3,7 @@ services:
   php:
     build: 
       context: .
-    image: durdahl/seascan-master
+    image: team10/seascan-master
     networks:
       - frontend
       - backend
