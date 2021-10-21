@@ -1,48 +1,19 @@
-version: 2.1
 jobs:
-  build:
-    machine: true
-        # docker:
-        #   - image: cimg/base:stable
+  install_composer_packages:
+    executor: php/default
     steps:
       - checkout
-      # - setup_remote_docker: 
-      #     version: 20.10.7
-      - run: 
-          name: create image
-          command: |
-            ls
-            sudo docker build . -t durdahl/seascan-master
-      - run:
-          name: Start container and verify it's working
-          command: |
-            set -x
-            docker-compose up -d
+      - php/install-composer:
+          install-version: 1.10.16
+      - php/install-packages
       - run:
           name: unit test maybe
           command: |
-            pwd
-            ls
             php ./vendor/bin/phpunit --testdox
-  # install_php:
-  #   docker:
-  #     - image: 'cimg/base:edge'
-  #   steps:
-  #     - checkout
-  #     - php/install-php:
-  #         version: '7.3'
-  #     - run:
-  #         name: unit test maybe
-  #         command: |
-  #           pwd
-  #           ls
-  #           sudo ./vendor/bin/phpunit --testdox
-# orbs:
-#   php: circleci/php@x.y
-#   version: 2.1
+orbs:
+  php: circleci/php@1.1.0
+version: 2.1
 workflows:
-  test-workflow:  
+  install:
     jobs:
-      # - install_php
-      - build
-      
+      - install_composer_packages
