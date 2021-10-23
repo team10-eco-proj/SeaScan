@@ -23,3 +23,5 @@ Homestead.json
 .phpunit.result.cache
 _docCommented
 NoGitNotes/
+node_modules
+NoGit/
