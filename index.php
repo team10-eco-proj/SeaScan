@@ -68,8 +68,8 @@ include "./libraries.html";
                         </ul>
                     </li>
                     <li><a href="app-event-calender.html"><i class="ti-calendar"></i> Calender </a></li>
-                    <li><a href="app-email.html"><i class="ti-email"></i> Email</a></li>
-                    <li><a href="app-profile.html"><i class="ti-user"></i> Profile</a></li>
+                    <li id="view_addInput"><a><i class="ti-email"></i> Email</a></li>
+                    <li><a href="/settings/view_settings.php"><i class="ti-user"></i> Settings</a></li>
                     <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
                     <li class="label">Features</li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span

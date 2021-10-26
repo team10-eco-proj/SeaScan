@@ -46,4 +46,6 @@ $conn = new mysqli($host, $user, $pass, $db_name);
 
 // $res->close();
 // $conn->close();
+
+$loggedIn = true;
 ?>
