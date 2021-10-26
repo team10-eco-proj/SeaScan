@@ -8,11 +8,13 @@ if(!empty($_ENV['MYSQL_USER'])){
     $user = $_ENV['MYSQL_USER'];
 }else{
     $user = 'user';
+    $user = 'root';
 }
 if(!empty($_ENV['MYSQL_PASSWORD'])){
     $pass = $_ENV['MYSQL_PASSWORD'];
 }else{
     $pass = 'password';
+    $pass = 'root';
 }
 if(!empty($_ENV['MYSQL_DB'])){
     $db_name = $_ENV['MYSQL_DB'];
