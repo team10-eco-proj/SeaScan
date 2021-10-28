@@ -1,4 +1,7 @@
 <?php
+
+global $conn;
+
 if(!empty($_ENV['MYSQL_HOST'])){
     $host = $_ENV['MYSQL_HOST'];
 }else{
@@ -28,9 +31,22 @@ if(!empty($_ENV['MYSQL_DB'])){
 // echo "<br><br>";
 
 $conn = new mysqli($host, $user, $pass, $db_name);
+/* check connection */
+if ($conn->connect_errno) {
+    printf("Connect failed: %s\n", $conn->connect_error);
+    exit();
+}
+
+/* check if server is alive */
+// if ($conn->ping()) {
+//     // printf ("Our connection is ok!\n");
+// } else {
+//     // printf ("Error: %s\n", $conn->error);
+// }
+// echo "<script type='text/javascript'>alert('$conn->connection_status');</script>";
 
 // if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
+     // die("Connection failed: " . $conn->connect_error);
 // } 
 // echo "Connected to MySQL successfully!";
 // echo "<br><br>";
