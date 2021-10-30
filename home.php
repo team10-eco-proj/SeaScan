@@ -1,89 +1,59 @@
 <?php 
 session_start();
-
+// print_r($_SESSION);
 // echo __DIR__;
 include "./mysql-connect.php"; 
 include "./libraries.html"; 
+include './google-init.php';
+include './User.class.php'; 
 require_once 'vendor/autoload.php';
-require_once './User.class.php'; 
 
- 
-// init configuration
-$clientID = '572338156481-tdcmanaifjfr0hg0hmhbu2o04i4sqlsq.apps.googleusercontent.com';
-$clientSecret = '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';
-$redirectUri = 'http://localhost:30001/home.php';
-  
-// create Client Request to access Google API
-$client = new Google_Client();
-$client->setClientId($clientID);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUri);
-$client->addScope("email");
-$client->addScope("profile");
- 
-// authenticate code from Google OAuth Flow
 if (isset($_GET['code'])) {
-  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-  $client->setAccessToken($token['access_token']);
-//   header('Location: ' . filter_var(GOOGLE_REDIRECT_URL, FILTER_SANITIZE_URL)); 
-  
-  // get profile info
-  $google_oauth = new Google_Service_Oauth2($client);
-  $google_account_info = $google_oauth->userinfo->get();
-  $email =  $google_account_info->email;
-  $name =  $google_account_info->name;
- 
+        
+    if (isset($_SESSION['access_token'])) {
+        echo "<script>window.location.href='home.php';</script>";
+        exit;
+    }
+    $client->authenticate($_GET['code']);
 
-  // now you can use this profile info to create account in your website and make user logged in.
-} else {
-  echo "<a href='".$client->createAuthUrl()."'>Google Login</a>";
-}
+    $service = new Google_Service_Oauth2($client);
+    $gpUserProfile = $service->userinfo->get();
 
-if($client->getAccessToken()){ 
-    // Get user profile data from google 
-    $gpUserProfile = $google_oauth->userinfo->get(); 
-     
-    // Initialize User class 
+    $_SESSION['access_token'] = $client->getAccessToken(); 
+
+    if (!empty($gpUserProfile['name'])) {
+    $_SESSION['full_name'] = $gpUserProfile['name'];
+    }
+
+    if (!empty($gpUserProfile['email'])) {
+    $_SESSION['email_id'] = $gpUserProfile['email'];
+    }
+
     $user = new User(); 
-     
+
     // Getting user profile info 
     $gpUserData = array(); 
     $gpUserData['oauth_uid']  = !empty($gpUserProfile['id'])?$gpUserProfile['id']:''; 
     $gpUserData['first_name'] = !empty($gpUserProfile['given_name'])?$gpUserProfile['given_name']:''; 
     $gpUserData['last_name']  = !empty($gpUserProfile['family_name'])?$gpUserProfile['family_name']:''; 
-    $gpUserData['email']       = !empty($gpUserProfile['email'])?$gpUserProfile['email']:''; 
-    $gpUserData['gender']       = !empty($gpUserProfile['gender'])?$gpUserProfile['gender']:''; 
-    $gpUserData['locale']       = !empty($gpUserProfile['locale'])?$gpUserProfile['locale']:''; 
-    $gpUserData['picture']       = !empty($gpUserProfile['picture'])?$gpUserProfile['picture']:''; 
-     
+    $gpUserData['email']      = !empty($gpUserProfile['email'])?$gpUserProfile['email']:''; 
+    $gpUserData['gender']     = !empty($gpUserProfile['gender'])?$gpUserProfile['gender']:''; 
+    $gpUserData['locale']     = !empty($gpUserProfile['locale'])?$gpUserProfile['locale']:''; 
+    $gpUserData['picture']    = !empty($gpUserProfile['picture'])?$gpUserProfile['picture']:''; 
+
     // Insert or update user data to the database 
     $gpUserData['oauth_provider'] = 'google'; 
     $userData = $user->checkUser($gpUserData); 
-     
+
     // Storing user data in the session 
     $_SESSION['userData'] = $userData; 
-     
-    // Render user profile data 
-    if(!empty($userData)){ 
-        $output     = '<h2>Google Account Details</h2>'; 
-        $output .= '<div class="ac-data">'; 
-        $output .= '<img src="'.$userData['picture'].'">'; 
-        $output .= '<p><b>Google ID:</b> '.$userData['oauth_uid'].'</p>'; 
-        $output .= '<p><b>Name:</b> '.$userData['first_name'].' '.$userData['last_name'].'</p>'; 
-        $output .= '<p><b>Email:</b> '.$userData['email'].'</p>'; 
-        $output .= '<p><b>Gender:</b> '.$userData['gender'].'</p>'; 
-        $output .= '<p><b>Locale:</b> '.$userData['locale'].'</p>'; 
-        $output .= '<p><b>Logged in with:</b> Google Account</p>'; 
-        $output .= '<p>Logout from <a href="logout.php">Google</a></p>'; 
-        $output .= '</div>'; 
-    }else{ 
-        $output = '<h3 style="color:red">Some problem occurred, please try again.</h3>'; 
-    } 
-  }
+    // print_r($data);
+}
 
-  if(isset($_SESSION['token'])){ 
-    $client->setAccessToken($_SESSION['token']); 
-  } 
+if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
+    echo "<script>window.location.href='index.php';</script>";
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -231,7 +201,7 @@ if($client->getAccessToken()){
                         </ul>
                     </li>
                     <li><a href="../documentation/index.html"><i class="ti-file"></i> Documentation</a></li>
-                    <li><a><i class="ti-close"></i> Logout</a></li>
+                    <li><a href="logout.php"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -392,7 +362,7 @@ if($client->getAccessToken()){
                         </div>
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar"><?php echo $name; ?>
+                                <span class="user-avatar"><?php echo $_SESSION['full_name']; ?>
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
@@ -429,7 +399,7 @@ if($client->getAccessToken()){
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="logout.php">
                                                     <i class="ti-power-off"></i>
                                                     <span>Logout</span>
                                                 </a>
@@ -437,6 +407,12 @@ if($client->getAccessToken()){
                                         </ul>
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                    <a href="logout.php">
+                                        <i class="ti-power-off"></i>
+                                        <span>Logout</span>
+                                    </a>
                             </div>
                         </div>
                     </div>
@@ -489,16 +465,3 @@ if($client->getAccessToken()){
 
 
 
-
-
-<?php 
-    // $testString = "hello";
-    // $testInt = 4;
-    // $sqlTest = "INSERT INTO tbl_test (word, num) VALUES (?, ?)";
-    // $stmt = $conn->prepare($sqlTest);
-    // $stmt->bind_param("si", $testString, $testInt);
-
-    // if($stmt->execute()){
-    //   echo "worked <br><br>";
-    // }
-    ?>

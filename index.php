@@ -1,98 +1,54 @@
 <?php 
 session_start();
-
+// print_r($_SESSION);
 // echo __DIR__;
 include "./mysql-connect.php"; 
 include "./libraries.html"; 
+include './google-init.php';
 require_once 'vendor/autoload.php';
  
-// init configuration
-$clientID = '572338156481-tdcmanaifjfr0hg0hmhbu2o04i4sqlsq.apps.googleusercontent.com';
-$clientSecret = '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';
-$redirectUri = 'http://localhost:30001/home.php';
-  
-// create Client Request to access Google API
-$client = new Google_Client();
-$client->setClientId($clientID);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUri);
-$client->addScope("email");
-$client->addScope("profile");
- 
-// // authenticate code from Google OAuth Flow
-// if (isset($_GET['code'])) {
-//   $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-//   $client->setAccessToken($token['access_token']);
-  
-//   // get profile info
-//   $google_oauth = new Google_Service_Oauth2($client);
-//   $google_account_info = $google_oauth->userinfo->get();
-//   $email =  $google_account_info->email;
-//   $name =  $google_account_info->name;
- 
-//   // now you can use this profile info to create account in your website and make user logged in.
-// } else {
-//   echo "<a href='".$client->createAuthUrl()."'>Google Login</a>";
-// }
 
+if (isset($_SESSION['access_token'])) {
+  echo "<script>window.location.href='home.php';</script>";
+  exit;
+}
+ 
 if(isset($_GET['code'])){ 
   $client->authenticate($_GET['code']); 
-  $_SESSION['token'] = $client->getAccessToken(); 
-  header('Location: ' . filter_var(GOOGLE_REDIRECT_URL, FILTER_SANITIZE_URL)); 
+  $_SESSION['access_token'] = $client->getAccessToken(); 
+  // header('Location: ' . filter_var(GOOGLE_REDIRECT_URL, FILTER_SANITIZE_URL)); 
+
+  $token = $client->fetchAccessTokenWithAuthCode($_GET["code"]);
+
+  if (!isset($token["error"])) {
+    $client->setAccessToken($token["access_token"]);
+
+    $_SESSION["access_token"] = $token["access_token"];
+
+    $service = new Google_Service_Oauth2($client);
+    $data = $service->userinfo->get();
+    print_r($data);
+
+    if (!empty($data['given_name'])) {
+      $_SESSION['first_name'] = $data['given_name'];
+    }
+
+    if (!empty($data['family_name'])) {
+      $_SESSION['last_name'] = $data['family_name'];
+    }
+
+    if (!empty($data['email'])) {
+      $_SESSION['email_id'] = $data['email'];
+    }
+  }
 } 
 
-if(isset($_SESSION['token'])){ 
-  $client->setAccessToken($_SESSION['token']); 
-} 
+
 
 if($client->getAccessToken()){ 
-  // Get user profile data from google 
-  $gpUserProfile = $google_oauthV2->userinfo->get(); 
-   
   // Initialize User class 
-  $user = new User(); 
-   
-  // Getting user profile info 
-  $gpUserData = array(); 
-  $gpUserData['oauth_uid']  = !empty($gpUserProfile['id'])?$gpUserProfile['id']:''; 
-  $gpUserData['first_name'] = !empty($gpUserProfile['given_name'])?$gpUserProfile['given_name']:''; 
-  $gpUserData['last_name']  = !empty($gpUserProfile['family_name'])?$gpUserProfile['family_name']:''; 
-  $gpUserData['email']       = !empty($gpUserProfile['email'])?$gpUserProfile['email']:''; 
-  $gpUserData['gender']       = !empty($gpUserProfile['gender'])?$gpUserProfile['gender']:''; 
-  $gpUserData['locale']       = !empty($gpUserProfile['locale'])?$gpUserProfile['locale']:''; 
-  $gpUserData['picture']       = !empty($gpUserProfile['picture'])?$gpUserProfile['picture']:''; 
-   
-  // Insert or update user data to the database 
-  $gpUserData['oauth_provider'] = 'google'; 
-  $userData = $user->checkUser($gpUserData); 
-   
-  // Storing user data in the session 
-  $_SESSION['userData'] = $userData; 
-   
-  // Render user profile data 
-  if(!empty($userData)){ 
-      $output     = '<h2>Google Account Details</h2>'; 
-      $output .= '<div class="ac-data">'; 
-      $output .= '<img src="'.$userData['picture'].'">'; 
-      $output .= '<p><b>Google ID:</b> '.$userData['oauth_uid'].'</p>'; 
-      $output .= '<p><b>Name:</b> '.$userData['first_name'].' '.$userData['last_name'].'</p>'; 
-      $output .= '<p><b>Email:</b> '.$userData['email'].'</p>'; 
-      $output .= '<p><b>Gender:</b> '.$userData['gender'].'</p>'; 
-      $output .= '<p><b>Locale:</b> '.$userData['locale'].'</p>'; 
-      $output .= '<p><b>Logged in with:</b> Google Account</p>'; 
-      $output .= '<p>Logout from <a href="logout.php">Google</a></p>'; 
-      $output .= '</div>'; 
-  }else{ 
-      $output = '<h3 style="color:red">Some problem occurred, please try again.</h3>'; 
-  } 
+  // $user = new User(); 
 }
-else{ 
-  // Get login url 
-  $authUrl = $client->createAuthUrl(); 
-   
-  // Render google login button 
-  $output = '<a href="'.filter_var($authUrl, FILTER_SANITIZE_URL).'">Sign In With Google</a>'; 
-} 
 ?>
 
 <!DOCTYPE html>
@@ -101,13 +57,8 @@ else{
 <head>
   <style>
     .gradient-custom {
-      /* fallback for old browsers */
       background: #6a11cb;
-
-      /* Chrome 10-25, Safari 5.1-6 */
       background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
-
-      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
     }
 
@@ -121,17 +72,9 @@ else{
       background-color: #f1837a;
     }
 
-    .d-grid {
-      margin-top: -50px
-    }
-
-    a {
-      color: white;
-    }
-
-    a hover {
-      color: white;
-    }
+    .d-grid { margin-top: -50px }
+    a { color: white; }
+    a:hover { color: white; }
   </style>
 </head>
 <script>
@@ -175,7 +118,7 @@ else{
             </div>
             <div class="d-grid mb-2">
                 <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
-                  <i class="fab fa-google me-2"></i> <?php echo $output; ?>
+                  <i class="fab fa-google me-2"></i> <a href="<?php echo $client->createAuthUrl(); ?>">Sign In With Google</a>
                 </button>
               </div>
             <!-- <div>

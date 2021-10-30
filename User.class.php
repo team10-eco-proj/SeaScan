@@ -17,10 +17,10 @@ class User {
 
         require './mysql-connect.php';
 
-    global $conn;
+        global $conn;
         if(!isset($this->db)){ 
             // Connect to the database 
-            printf("Failed to connect with MySQL, CONENCTINGG"); 
+            // printf("Failed to connect with MySQL, CONENCTINGG"); 
 
             // $conn = new mysqli($this->dbHost, $this->dbUsername, $this->dbPassword, $this->dbName); \
             if($conn->connect_error){ 
@@ -38,7 +38,7 @@ class User {
         global $conn;
         $this->db = $conn; 
         if(!isset($conn)){ 
-            printf("\nDISCONNECTED"); 
+            // printf("\nDISCONNECTED"); 
         }
         if(!empty($data)){ 
             // Check whether the user already exists in the database 
