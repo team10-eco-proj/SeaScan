@@ -39,8 +39,8 @@ include "./libraries.html";
     $(document).ready(function(){
         // $('#contentBody').load('./docForms/view_pageWithPdfAndOthers.php');  
         // $('#navContainer').load('./sideNav.php');  
-        // $('#contentBody').load('./Home/view_home.php');  
-        $('#contentBody').load('./inputData/view_dataInput.php'); 
+        $('#contentBody').load('./Home/view_home.php');  
+        // $('#contentBody').load('./inputData/view_dataInput.php'); 
     });
 </script>
 
