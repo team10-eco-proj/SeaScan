@@ -3,7 +3,7 @@ session_start();
 // print_r($_SESSION);
 // echo __DIR__;
 include "./mysql-connect.php"; 
-require_once "./libraries.html"; 
+// require_once "./libraries.html"; 
 include './google-init.php';
 include './User.class.php'; 
 require_once 'vendor/autoload.php';
