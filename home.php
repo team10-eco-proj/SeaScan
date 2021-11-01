@@ -3,7 +3,7 @@ session_start();
 // print_r($_SESSION);
 // echo __DIR__;
 include "./mysql-connect.php"; 
-include "./libraries.html"; 
+require_once "./libraries.html"; 
 include './google-init.php';
 include './User.class.php'; 
 require_once 'vendor/autoload.php';
@@ -90,7 +90,7 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
 <script>
     $(document).ready(function(){
         // $('#contentBody').load('./docForms/view_pageWithPdfAndOthers.php');  
-        $('#navContainer').load('./sideNav.php');  
+        // $('#navContainer').load('./sideNav.php');  
         $('#contentBody').load('./Home/view_home.php');  
     });
 </script>
@@ -119,7 +119,7 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
                             <li><a href="chart-flot.html">Flot</a></li>
                         </ul>
                     </li>
-                    <li><a href="app-event-calender.html"><i class="ti-calendar"></i> Calender </a></li>
+                    <li id="view_waterInput"><a><i class="ti-calendar"></i> Calender </a></li>
                     <li id="view_addInput"><a><i class="ti-email"></i> Email</a></li>
                     <li><a href="/settings/view_settings.php"><i class="ti-user"></i> Settings</a></li>
                     <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
