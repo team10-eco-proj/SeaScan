@@ -1,7 +1,6 @@
 
 <div class="card m-3">
     <div class="card-body">
-        <form action="/waterInput/php_submitWaterData.php" method="post">
             <div class="form-group">
                 <label for="input_newTemp">Water Temp</label>
                 <input type="text" class="form-control" id="input_newTemp" aria-describedby="tempHelp" placeholder="Enter Temp">
@@ -26,6 +25,5 @@
                 <input type="date" class="form-control" id="input_newDate" placeholder="Date">
             </div>
             <button id="btn_waterInputSubmit" type="submit" class="btn btn-primary">Submit</button>
-        </form>
     </div>
 </div>
