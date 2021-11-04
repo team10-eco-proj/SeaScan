@@ -6,7 +6,6 @@ include "./mysql-connect.php";
 include "./libraries.html"; 
 include './google-init.php';
 include './User.class.php'; 
-include './permissions-modal.php';
 require_once 'vendor/autoload.php';
 
 global $user;
@@ -44,19 +43,22 @@ if (isset($_GET['code'])) {
     $gpUserData['locale']     = !empty($gpUserProfile['locale'])?$gpUserProfile['locale']:''; 
     $gpUserData['picture']    = !empty($gpUserProfile['picture'])?$gpUserProfile['picture']:''; 
 
-    $gpUserData['user_role']  = '-1';
-
     // Insert or update user data to the database 
     $gpUserData['oauth_provider'] = 'google'; 
     $userData = $user->checkUser($gpUserData); 
 
     // Storing user data in the session 
     $_SESSION['userData'] = $userData; 
+    echo "<script>window.location.href='home.php';</script>";
+    exit;
     // print_r($data);
 }
+include './permissions-modal.php';
+
+
 
 if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='/';</script>";
     exit;
 }
 
