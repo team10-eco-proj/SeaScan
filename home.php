@@ -55,7 +55,14 @@ if (isset($_GET['code'])) {
 }
 include './permissions-modal.php';
 
+$userRoleText = '';
 
+if ($_SESSION['userData']['user_role'] == '2') {
+    $userRoleText = 'Fisher';
+} 
+if ($_SESSION['userData']['user_role'] == '3') {
+    $userRoleText = 'Researcher/Scientist';
+} 
 
 if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
     echo "<script>window.location.href='/';</script>";
@@ -370,6 +377,7 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
                         <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
                                 <span class="user-avatar"><?php echo $_SESSION['full_name']; ?>
+                                <? if($userRoleText != '') { ?> <span> - <?=$userRoleText?></span> <? } ?>
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
@@ -415,11 +423,13 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                    <a href="logout.php">
-                                        <i class="ti-power-off"></i>
-                                        <span>Logout</span>
-                                    </a>
+                        </div>
+                        <div class="dropdown dib">
+                            <div class="header-icon">
+                                <a href="logout.php">
+                                    <i class="ti-power-off"></i>
+                                    <span>Logout</span>
+                                </a>
                             </div>
                         </div>
                     </div>

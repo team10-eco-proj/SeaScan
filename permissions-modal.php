@@ -34,19 +34,21 @@ if(isset($_POST['scientist_button'])) {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    var myModal = new bootstrap.Modal(document.getElementById("myModal"));
+    var myModal = new bootstrap.Modal(document.getElementById("myModal"), {
+        backdrop: 'static',
+        keyboard: false
+    });
 
     if ('<?=$selectedRole?>' != '-1' || '<?=$queryRun?>' == true) myModal.hide();
     else if ('<?=$selectedRole?>' == '-1') myModal.show();
 });
 </script>
 <!-- Modal HTML -->
-<div id="myModal" class="modal fade" tabindex="-1">
+<div id="myModal" class="modal fade" data-keyboard="false" data-backdrop="static" role="dialog" tabindex="-1" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Please Select a Role</h5>
-                <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <p>Welcome, <?=$currentUserData['first_name']?>! Please select a role.</p>
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <input type="submit" name="fisher_button" class="btn btn-primary" value="Fisher" />
             </form>
             <form method="post">
-                <input type="submit" name="scientist_button" class="btn btn-primary" value="Scientist/Researcher" />
+                <input type="submit" name="scientist_button" class="btn btn-primary" value="Researcher/Scientist" />
             </form>
             </div>
         </div>
