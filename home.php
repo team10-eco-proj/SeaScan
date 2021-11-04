@@ -6,7 +6,10 @@ include "./mysql-connect.php";
 include "./libraries.html"; 
 include './google-init.php';
 include './User.class.php'; 
+include './permissions-modal.php';
 require_once 'vendor/autoload.php';
+
+global $user;
 
 if (isset($_GET['code'])) {
         
@@ -40,6 +43,8 @@ if (isset($_GET['code'])) {
     $gpUserData['gender']     = !empty($gpUserProfile['gender'])?$gpUserProfile['gender']:''; 
     $gpUserData['locale']     = !empty($gpUserProfile['locale'])?$gpUserProfile['locale']:''; 
     $gpUserData['picture']    = !empty($gpUserProfile['picture'])?$gpUserProfile['picture']:''; 
+
+    $gpUserData['user_role']  = '-1';
 
     // Insert or update user data to the database 
     $gpUserData['oauth_provider'] = 'google'; 
@@ -143,7 +148,7 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
                     <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="uc-calendar.html">Calendar</a></li>
+                            <li><a href="#myModal">Calendar</a></li>
                             <li><a href="uc-carousel.html">Carousel</a></li>
                             <li><a href="uc-weather.html">Weather</a></li>
                             <li><a href="uc-datamap.html">Datamap</a></li>
