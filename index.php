@@ -2,7 +2,7 @@
 session_start();
 // print_r($_SESSION);
 // echo __DIR__;
-include "./mysql-connect.php"; 
+// include "./mysql-connect.php"; 
 // include "./libraries.html"; 
 include './google-init.php';
 require_once 'vendor/autoload.php';
