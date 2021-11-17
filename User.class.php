@@ -81,7 +81,7 @@ class User {
                 } 
                  
                 // Insert user data in the database 
-                $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")"; 
+                $query = "INSERT INTO ".$this->userTbl." (".$columns.", user_role) VALUES (".$values.", '-1')"; 
                 $insert = $this->db->query($query); 
 
             } 
