@@ -2,7 +2,7 @@
 session_start();
 // print_r($_SESSION);
 // echo __DIR__;
-include "./mysql-connect.php"; 
+// include "./mysql-connect.php"; 
 // include "./libraries.html"; 
 include './google-init.php';
 require_once 'vendor/autoload.php';
@@ -11,43 +11,6 @@ require_once 'vendor/autoload.php';
 if (isset($_SESSION['access_token'])) {
   echo "<script>window.location.href='home.php';</script>";
   exit;
-}
- 
-if(isset($_GET['code'])){ 
-  $client->authenticate($_GET['code']); 
-  $_SESSION['access_token'] = $client->getAccessToken(); 
-  // header('Location: ' . filter_var(GOOGLE_REDIRECT_URL, FILTER_SANITIZE_URL)); 
-
-  $token = $client->fetchAccessTokenWithAuthCode($_GET["code"]);
-
-  if (!isset($token["error"])) {
-    $client->setAccessToken($token["access_token"]);
-
-    $_SESSION["access_token"] = $token["access_token"];
-
-    $service = new Google_Service_Oauth2($client);
-    $data = $service->userinfo->get();
-    print_r($data);
-
-    if (!empty($data['given_name'])) {
-      $_SESSION['first_name'] = $data['given_name'];
-    }
-
-    if (!empty($data['family_name'])) {
-      $_SESSION['last_name'] = $data['family_name'];
-    }
-
-    if (!empty($data['email'])) {
-      $_SESSION['email_id'] = $data['email'];
-    }
-  }
-} 
-
-
-
-if($client->getAccessToken()){ 
-  // Initialize User class 
-  // $user = new User(); 
 }
 ?>
 
