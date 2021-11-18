@@ -12,7 +12,7 @@
 
 var waterTable = new Tabulator("#waterDataTable", {
     data:"./waterInput/get_waterData.php",           //load row data from array
-    // layout:"fitColumns",      //fit columns to width of table
+    layout:"fitColumns",      //fit columns to width of table
     responsiveLayout:"hide",  //hide columns that dont fit on the table
     tooltips:true,            //show tool tips on cells
     addRowPos:"top",          //when adding a new row, add it to the top of the table
@@ -27,11 +27,11 @@ var waterTable = new Tabulator("#waterDataTable", {
     columns:[                 //define the table columns
         {title:"data_pk", field:"data_pk"},
         {title:"temp", field:"temp", hozAlign:"left", editor:true},
-        {title:"salinity", field:"salinity", width:95, editor:true},
-        {title:"grid_lat", field:"grid_lat", hozAlign:"center", width:100},
-        {title:"grid_long", field:"grid_long", width:130, editor:"input"},
-        {title:"log_time", field:"log_time", width:130, hozAlign:"center"},
-        {title:"user_fk", field:"user_fk", width:90,  hozAlign:"center"},
+        {title:"salinity", field:"salinity", editor:true},
+        {title:"grid_lat", field:"grid_lat"},
+        {title:"grid_long", field:"grid_long", editor:"input"},
+        {title:"log_time", field:"log_time"},
+        {title:"user_fk", field:"user_fk"},
     ],
 });
 </script>
