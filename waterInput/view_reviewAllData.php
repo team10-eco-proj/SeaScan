@@ -27,7 +27,7 @@ var waterTable = new Tabulator("#waterDataTable", {
     columns:[                 //define the table columns
         {title:"data_pk", field:"data_pk"},
         {title:"temp", field:"temp", hozAlign:"left", editor:true},
-        {title:"salinity", field:"salinity", width:95, , editor:true},
+        {title:"salinity", field:"salinity", width:95, editor:true},
         {title:"grid_lat", field:"grid_lat", hozAlign:"center", width:100},
         {title:"grid_long", field:"grid_long", width:130, editor:"input"},
         {title:"log_time", field:"log_time", width:130, hozAlign:"center"},
