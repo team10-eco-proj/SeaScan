@@ -1,4 +1,7 @@
 <?php
+
+global $conn;
+
 if(!empty($_ENV['MYSQL_HOST'])){
     $host = $_ENV['MYSQL_HOST'];
 }else{
@@ -8,27 +11,42 @@ if(!empty($_ENV['MYSQL_USER'])){
     $user = $_ENV['MYSQL_USER'];
 }else{
     $user = 'user';
+    $user = 'root';
 }
 if(!empty($_ENV['MYSQL_PASSWORD'])){
     $pass = $_ENV['MYSQL_PASSWORD'];
 }else{
     $pass = 'password';
+    $pass = 'root';
 }
 if(!empty($_ENV['MYSQL_DB'])){
     $db_name = $_ENV['MYSQL_DB'];
 }else{
     $db_name = 'seascan';
 }
-
+///idk
 // echo $_ENV['MYSQL_HOST'];
 // echo "<br><br>";
 // echo "Connecting to Database: $host $user $pass $db_name";
 // echo "<br><br>";
 
 $conn = new mysqli($host, $user, $pass, $db_name);
+/* check connection */
+if ($conn->connect_errno) {
+    printf("Connect failed: %s\n", $conn->connect_error);
+    exit();
+}
+
+/* check if server is alive */
+// if ($conn->ping()) {
+//     // printf ("Our connection is ok!\n");
+// } else {
+//     // printf ("Error: %s\n", $conn->error);
+// }
+// echo "<script type='text/javascript'>alert('$conn->connection_status');</script>";
 
 // if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
+     // die("Connection failed: " . $conn->connect_error);
 // } 
 // echo "Connected to MySQL successfully!";
 // echo "<br><br>";
@@ -44,4 +62,5 @@ $conn = new mysqli($host, $user, $pass, $db_name);
 
 // $res->close();
 // $conn->close();
+
 ?>

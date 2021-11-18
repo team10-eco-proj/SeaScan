@@ -3,6 +3,18 @@ jobs:
     executor: php/default
     steps:
       - checkout
+      # - setup_remote_docker: 
+      #     version: 20.10.7
+      # - run: 
+      #     name: create image
+      #     command: |
+      #       ls
+      #       sudo docker build . -t team10/seascan-master
+      # - run:
+      #     name: Start container and verify it's working
+      #     command: |
+      #       set -x
+      #       docker-compose up -d
       - php/install-composer:
           install-version: 1.10.16
       - php/install-packages
