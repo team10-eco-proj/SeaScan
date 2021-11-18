@@ -7,24 +7,26 @@
 
 $currentUserData = $_SESSION['userData'];
 $selectedRole = $currentUserData['user_role'];
-// print_r($selectedRole);
 $queryRun = false;
 
+$userPrimaryKeyQuery = "SELECT id FROM users WHERE oauth_provider = '".$currentUserData['oauth_provider']."' AND oauth_uid = '".$currentUserData['oauth_uid']."'"; 
+$userPrimaryKeyResult = $conn->query($userPrimaryKeyQuery); 
+$userPrimaryKey = $userPrimaryKeyResult->fetch_assoc();
 
 if(isset($_POST['gen_user_button'])) {
-    $updateRoleQuery = "UPDATE users SET user_role = '1' WHERE oauth_provider = '".$currentUserData['oauth_provider']."' AND oauth_uid = '".$currentUserData['oauth_uid']."'";
+    $updateRoleQuery = "UPDATE assoc_user_role SET role_fk = 1 WHERE user_fk = '".intval($userPrimaryKey['id'])."'";
     $_SESSION['userData']['user_role'] = '1';
     $conn->query($updateRoleQuery);
     $queryRun = true;
 }
 if(isset($_POST['fisher_button'])) {
-    $updateRoleQuery = "UPDATE users SET user_role = '2' WHERE oauth_provider = '".$currentUserData['oauth_provider']."' AND oauth_uid = '".$currentUserData['oauth_uid']."'";
+    $updateRoleQuery = "UPDATE assoc_user_role SET role_fk = 2 WHERE user_fk = '".intval($userPrimaryKey['id'])."'";
     $_SESSION['userData']['user_role'] = '2';
     $conn->query($updateRoleQuery);
     $queryRun = true;
 }
 if(isset($_POST['scientist_button'])) {
-    $updateRoleQuery = "UPDATE users SET user_role = '3' WHERE oauth_provider = '".$currentUserData['oauth_provider']."' AND oauth_uid = '".$currentUserData['oauth_uid']."'";
+    $updateRoleQuery = "UPDATE assoc_user_role SET role_fk = 3 WHERE user_fk = '".intval($userPrimaryKey['id'])."'";
     $_SESSION['userData']['user_role'] = '3';
     $conn->query($updateRoleQuery);
     $queryRun = true;

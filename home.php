@@ -49,9 +49,9 @@ if (isset($_GET['code'])) {
 
     // Storing user data in the session 
     $_SESSION['userData'] = $userData; 
+
     echo "<script>window.location.href='home.php';</script>";
     exit;
-    // print_r($data);
 }
 include './permissions-modal.php';
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: seascan-master-sql: 3306
--- Generation Time: Oct 30, 2021 at 12:20 AM
+-- Generation Time: Nov 18, 2021 at 01:54 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.2.2
 
@@ -39,8 +39,7 @@ CREATE TABLE `users` (
   `locale` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created` datetime NOT NULL,
-  `modified` datetime NOT NULL,
-  `user_role` enum('-1','1','2','3') COLLATE utf8_unicode_ci NOT NULL DEFAULT '-1'
+  `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -61,7 +60,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

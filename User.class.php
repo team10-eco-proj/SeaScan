@@ -81,14 +81,28 @@ class User {
                 } 
                  
                 // Insert user data in the database 
-                $query = "INSERT INTO ".$this->userTbl." (".$columns.", user_role) VALUES (".$values.", '-1')"; 
+                $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")"; 
                 $insert = $this->db->query($query); 
 
+                $userPrimaryKeyQuery = "SELECT id FROM users WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'"; 
+                $userPrimaryKeyResult = $conn->query($userPrimaryKeyQuery); 
+                $userPrimaryKey = $userPrimaryKeyResult->fetch_assoc();
+                $updateRoleQuery = "INSERT INTO assoc_user_role (user_fk, role_fk) VALUES (".intval($userPrimaryKey['id']).", -1)";
+                $this->db->query($updateRoleQuery);
             } 
              
             // Get user data from the database 
             $result = $this->db->query($checkQuery); 
             $userData = $result->fetch_assoc(); 
+            $userPrimaryKeyQuery = "SELECT id FROM users WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'"; 
+            $userPrimaryKeyResult = $conn->query($userPrimaryKeyQuery); 
+            $userPrimaryKey = $userPrimaryKeyResult->fetch_assoc();
+            $getRoleQuery = "SELECT role_fk FROM assoc_user_role WHERE user_fk = '".intval($userPrimaryKey['id'])."'";
+            
+            $getRoleResult = $this->db->query($getRoleQuery); 
+            $getRole = $getRoleResult->fetch_assoc(); 
+            $userData['user_role'] = strval($getRole['role_fk']);
+
         } 
          
         // Return user data 
