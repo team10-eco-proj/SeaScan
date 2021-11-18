@@ -51,3 +51,22 @@ ALTER TABLE `water_data`
 ALTER TABLE `water_data`
   MODIFY `data_pk` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+DROP TABLE IF EXISTS `sub_role`;
+CREATE TABLE `sub_role` (
+  `role_pk` int(11) NOT NULL,
+  `role` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `sub_role`
+  ADD PRIMARY KEY (`role_pk`);
+
+INSERT INTO `sub_role` (`role_pk`, `role`) VALUES
+(-1, 'Unknown'),
+(1, 'General'),
+(2, 'Fisher'),
+(3, 'Scientist');
+
+ALTER TABLE `sub_role`
+  MODIFY `role_pk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
