@@ -1825,8 +1825,6 @@
                 }
             ],
             "time": "2021-09-25T07:38:51+00:00"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "psr/cache",
@@ -2130,7 +2128,6 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
->>>>>>> Durdahl-Working
         },
         {
             "name": "sebastian/cli-parser",
