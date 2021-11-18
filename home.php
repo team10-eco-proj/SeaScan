@@ -139,41 +139,16 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
 
                     <li><a href="app-widget-card.html"><i class="ti-layout-grid2-alt"></i> Widget</a></li>
                 <?php }else if($_SESSION['userData']['user_role'] == '3') { ?>
-                    <li class="label">Scientist Stuff</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> UI Elements <span
+                    <li clas="slabel">Scientist Stuff</li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-layout"></i> Review Data <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-alerts.html">Alerts</a></li>
-
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
-
-                            <li><a href="ui-list-group.html">List Group</a></li>
-
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-
+                            <li id="view_reviewData"><a>All</a></li>
+                            <li id="view_waterInput"><a>Salinity</a></li>
+                            <li id="view_waterInput"><a>Temperature</a></li>
                         </ul>
                     </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Components <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="#myModal">Calendar</a></li>
-                            <li><a href="uc-carousel.html">Carousel</a></li>
-                            <li><a href="uc-weather.html">Weather</a></li>
-                            <li><a href="uc-datamap.html">Datamap</a></li>
-                            <li><a href="uc-todo-list.html">To do</a></li>
-                            <li><a href="uc-scrollable.html">Scrollable</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                            <li><a href="uc-range-slider-basic.html">Basic Range Slider</a></li>
-                            <li><a href="uc-range-slider-advance.html">Advance Range Slider</a></li>
-                            <li><a href="uc-nestable.html">Nestable</a></li>
-
-                            <li><a href="uc-rating-bar-rating.html">Bar Rating</a></li>
-                            <li><a href="uc-rating-jRate.html">jRate</a></li>
-                        </ul>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-panel"></i> Edit Logs </a>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>

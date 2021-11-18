@@ -63,5 +63,4 @@ if ($conn->connect_errno) {
 // $res->close();
 // $conn->close();
 
-$loggedIn = true;
 ?>

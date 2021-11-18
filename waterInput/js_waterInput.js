@@ -28,3 +28,4 @@ function addNewWaterData(temp, salinity, lat, long, newWaterDate){
         }
     });
 }
+
