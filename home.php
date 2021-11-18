@@ -160,12 +160,6 @@ if (!isset($_SESSION['access_token']) && !isset($_GET['code'])) {
                             <li><a href="table-jsgrid.html">Editable </a></li>
                         </ul>
                     </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i> Icons <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-                            <li><a href="font-themify.html">Themify</a></li>
-                        </ul>
-                    </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-map"></i> Maps <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
